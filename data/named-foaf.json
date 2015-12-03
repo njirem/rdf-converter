@@ -1,0 +1,59 @@
+[
+    {
+        "@context": {
+            "spider": "http://www.marvel.com/spiderman#",
+            "foaf": "http://xmlns.com/foaf/0.1/",
+            "rel": "http://www.perceive.net/schemas/relationship/"
+        },
+        "@graph": [
+            {
+                "@id": "http://www.marvel.com/spiderman#peter",
+                "@graph": [
+                    {
+                        "@id": "spider:spiderman",
+                        "@type": "foaf:Person",
+                        "foaf:name": "Spiderman",
+                        "rel:enemyOf": {
+                            "@id": "spider:green-goblin"
+                        }
+                    },
+                    {
+                        "@id": "spider:peter",
+                        "@type": "foaf:Person",
+                        "foaf:name": "Peter Parker",
+                        "rel:friendOf": {
+                            "@id": "spider:harry"
+                        }
+                    }
+                ]
+            },
+            {
+                "@id": "spider:norman",
+                "@type": "foaf:Person",
+                "foaf:name": "Norman Osborn",
+                "rel:parentOf": {
+                    "@id": "spider:harry"
+                }
+            },
+            {
+                "@id": "spider:harry",
+                "@type": "foaf:Person",
+                "foaf:name": "Harry Osborn",
+                "rel:childOf": {
+                    "@id": "spider:norman"
+                },
+                "rel:friendOf": {
+                    "@id": "spider:peter"
+                }
+            },
+            {
+                "@id": "spider:green-goblin",
+                "@type": "foaf:Person",
+                "foaf:name": "Green Goblin",
+                "rel:enemyOf": {
+                    "@id": "spider:spiderman"
+                }
+            }
+        ]
+    }
+]

@@ -1,0 +1,16 @@
+<http://www.marvel.com/spiderman#spiderman> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Person> .
+<http://www.marvel.com/spiderman#spiderman> <http://www.perceive.net/schemas/relationship/enemyOf> <http://www.marvel.com/spiderman#green-goblin> .
+<http://www.marvel.com/spiderman#spiderman> <http://xmlns.com/foaf/0.1/name> "Spiderman"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://www.marvel.com/spiderman#green-goblin> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Person> .
+<http://www.marvel.com/spiderman#green-goblin> <http://www.perceive.net/schemas/relationship/enemyOf> <http://www.marvel.com/spiderman#spiderman> .
+<http://www.marvel.com/spiderman#green-goblin> <http://xmlns.com/foaf/0.1/name> "Green Goblin"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://www.marvel.com/spiderman#peter> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Person> .
+<http://www.marvel.com/spiderman#peter> <http://www.perceive.net/schemas/relationship/friendOf> <http://www.marvel.com/spiderman#harry> .
+<http://www.marvel.com/spiderman#peter> <http://xmlns.com/foaf/0.1/name> "Peter Parker"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://www.marvel.com/spiderman#harry> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Person> .
+<http://www.marvel.com/spiderman#harry> <http://www.perceive.net/schemas/relationship/childOf> <http://www.marvel.com/spiderman#norman> .
+<http://www.marvel.com/spiderman#harry> <http://www.perceive.net/schemas/relationship/friendOf> <http://www.marvel.com/spiderman#peter> .
+<http://www.marvel.com/spiderman#harry> <http://xmlns.com/foaf/0.1/name> "Harry Osborn"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://www.marvel.com/spiderman#norman> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Person> .
+<http://www.marvel.com/spiderman#norman> <http://www.perceive.net/schemas/relationship/parentOf> <http://www.marvel.com/spiderman#harry> .
+<http://www.marvel.com/spiderman#norman> <http://xmlns.com/foaf/0.1/name> "Norman Osborn"^^<http://www.w3.org/2001/XMLSchema#string> .

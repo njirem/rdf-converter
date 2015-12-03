@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:foaf="http://xmlns.com/foaf/0.1/"
+         xmlns:rel="http://www.perceive.net/schemas/relationship/">
+
+  <foaf:Person rdf:about="http://www.marvel.com/spiderman#spiderman">
+    <rel:enemyOf>
+      <foaf:Person rdf:about="http://www.marvel.com/spiderman#green-goblin">
+        <rel:enemyOf rdf:resource="http://www.marvel.com/spiderman#spiderman"/>
+        <foaf:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Green Goblin</foaf:name>
+      </foaf:Person>
+    </rel:enemyOf>
+
+    <foaf:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Spiderman</foaf:name>
+  </foaf:Person>
+
+  <foaf:Person rdf:about="http://www.marvel.com/spiderman#peter">
+    <rel:friendOf rdf:resource="http://www.marvel.com/spiderman#harry"/>
+    <foaf:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Peter Parker</foaf:name>
+  </foaf:Person>
+
+  <foaf:Person rdf:about="http://www.marvel.com/spiderman#harry">
+    <rel:childOf>
+      <foaf:Person rdf:about="http://www.marvel.com/spiderman#norman">
+        <rel:parentOf rdf:resource="http://www.marvel.com/spiderman#harry"/>
+        <foaf:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Norman Osborn</foaf:name>
+      </foaf:Person>
+    </rel:childOf>
+
+    <rel:friendOf rdf:resource="http://www.marvel.com/spiderman#peter"/>
+    <foaf:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Harry Osborn</foaf:name>
+  </foaf:Person>
+
+</rdf:RDF>

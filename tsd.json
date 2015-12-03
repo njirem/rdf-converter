@@ -1,0 +1,36 @@
+{
+  "version": "v4",
+  "repo": "borisyankov/DefinitelyTyped",
+  "ref": "master",
+  "path": "typings",
+  "bundle": "typings/tsd.d.ts",
+  "installed": {
+    "mocha/mocha.d.ts": {
+      "commit": "e850b6ac0d59fee86dd7cb6a1be2caf6400bde14"
+    },
+    "assertion-error/assertion-error.d.ts": {
+      "commit": "e850b6ac0d59fee86dd7cb6a1be2caf6400bde14"
+    },
+    "chai/chai.d.ts": {
+      "commit": "e850b6ac0d59fee86dd7cb6a1be2caf6400bde14"
+    },
+    "node/node.d.ts": {
+      "commit": "4910a7c52a1cf335877ea3b0917eb65117a66637"
+    },
+    "es6-promise/es6-promise.d.ts": {
+      "commit": "e850b6ac0d59fee86dd7cb6a1be2caf6400bde14"
+    },
+    "vinyl/vinyl.d.ts": {
+      "commit": "4910a7c52a1cf335877ea3b0917eb65117a66637"
+    },
+    "through2/through2.d.ts": {
+      "commit": "4910a7c52a1cf335877ea3b0917eb65117a66637"
+    },
+    "gulp-util/gulp-util.d.ts": {
+      "commit": "4910a7c52a1cf335877ea3b0917eb65117a66637"
+    },
+    "chalk/chalk.d.ts": {
+      "commit": "4910a7c52a1cf335877ea3b0917eb65117a66637"
+    }
+  }
+}

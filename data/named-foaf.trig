@@ -1,0 +1,33 @@
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix rel: <http://www.perceive.net/schemas/relationship/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix spider: <http://www.marvel.com/spiderman#> .
+
+spider:peter {
+    spider:peter
+    a foaf:Person ;
+    rel:friendOf spider:harry ;
+    foaf:name "Peter Parker"^^xsd:string .
+
+    spider:spiderman
+    a foaf:Person ;
+    rel:enemyOf spider:green-goblin ;
+    foaf:name "Spiderman"^^xsd:string .
+}
+
+spider:green-goblin
+  a foaf:Person ;
+  rel:enemyOf spider:spiderman ;
+  foaf:name "Green Goblin"^^xsd:string .
+
+
+spider:harry
+  a foaf:Person ;
+  rel:childOf spider:norman ;
+  rel:friendOf spider:peter ;
+  foaf:name "Harry Osborn"^^xsd:string .
+
+spider:norman
+  a foaf:Person ;
+  rel:parentOf spider:harry ;
+  foaf:name "Norman Osborn"^^xsd:string .
