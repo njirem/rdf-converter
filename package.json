@@ -1,6 +1,6 @@
 {
   "name": "rdf-converter",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "Tool to convert from and to ttl and other RDF description formats",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "wtest": "mocha --recursive --watch src/lib"
   },
   "author": "",
-  "license": "UNLICENSED",
+  "license": "Apache-2.0",
   "dependencies": {
     "jsonld": "^0.4.2",
     "minimist": "^1.2.0",
