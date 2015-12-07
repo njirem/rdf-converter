@@ -6,7 +6,7 @@ import { Type, DocumentData, jsonldToN3Quads, logPromise } from './shared';
 export function toJson(file: DocumentData): Promise<string> {
     return jsonld.fromRDF(file.document)
         .then(doc => jsonld.compact(doc, file.context))
-        .then(doc => JSON.stringify(doc))
+        .then(doc => JSON.stringify(doc, null, 4))
 }
 
 function n3Writer(file: DocumentData, format: string) {
