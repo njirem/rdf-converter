@@ -4,6 +4,7 @@ import { Parser, Writer, Util } from 'n3';
 import { Type, DocumentData, jsonldToN3Quads, logPromise } from './shared';
 
 export function toJson(file: DocumentData): Promise<string> {
+    if (file.context['']) delete file.context['']; // JSON-LD doesn't support the empty prefix
     return jsonld.fromRDF(file.document)
         .then(doc => jsonld.compact(doc, file.context))
         .then(doc => JSON.stringify(doc, null, 4))

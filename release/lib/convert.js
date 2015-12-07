@@ -2,6 +2,8 @@ var jsonld_1 = require('jsonld');
 var n3_1 = require('n3');
 var shared_1 = require('./shared');
 function toJson(file) {
+    if (file.context[''])
+        delete file.context['']; // JSON-LD doesn't support the empty prefix
     return jsonld_1.promises.fromRDF(file.document)
         .then(function (doc) { return jsonld_1.promises.compact(doc, file.context); })
         .then(function (doc) { return JSON.stringify(doc, null, 4); });
