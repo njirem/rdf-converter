@@ -5,11 +5,10 @@
 const gulp = require('gulp'),
     rename = require('gulp-rename'),
     del = require('del'),
-    // debug = require('gulp-debug'),
     rdf = require('./src/gulp');
 
 const paths = {
-    dist: 'build'
+    dist: 'out'
 }, testGraph = 'http://testGraph';
 
 gulp.task('default', gulp.series(

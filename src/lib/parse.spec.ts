@@ -6,9 +6,9 @@ import { join } from 'path';
 import * as parse from './parse';
 
 const filePaths = [
-    '../../data/named-foaf.trig',
-    '../../data/named-foaf.json',
-    '../../data/named-foaf.nq',
+    '../../examples/data/named-foaf.trig',
+    '../../examples/data/named-foaf.json',
+    '../../examples/data/named-foaf.nq',
 ]
 
 describe('Input', () => {

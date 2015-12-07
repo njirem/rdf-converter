@@ -1,6 +1,7 @@
 node_modules
 typings
 src/**/*.js
-src/**/*.js.map
+src/**/*.d.ts
+**/*.js.map
 build
 *.log
