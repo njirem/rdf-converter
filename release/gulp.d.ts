@@ -9,4 +9,4 @@ export { Type } from './lib/shared';
  *
  * nameGraph is the graphName for triples that don't have a graphName yet. (TODO: not implemented yet!!)
  */
-export default function Converter(destType: Type, overrideSrcType?: Type, nameGraph?: ((filename: string) => string) | string): NodeJS.ReadWriteStream;
+export declare function convert(destType: Type, overrideSrcType?: Type, nameGraph?: ((filename: string) => string) | string): NodeJS.ReadWriteStream;

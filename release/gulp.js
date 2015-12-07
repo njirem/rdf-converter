@@ -21,7 +21,7 @@ exports.Type = shared_2.Type;
  *
  * nameGraph is the graphName for triples that don't have a graphName yet. (TODO: not implemented yet!!)
  */
-function Converter(destType, overrideSrcType, nameGraph) {
+function convert(destType, overrideSrcType, nameGraph) {
     if (!destType)
         throw new gulp_util_1.PluginError(PLUGIN_NAME, 'Missing destination type in function call!');
     return through.obj(function (file, enc, cb) {
@@ -53,5 +53,4 @@ function Converter(destType, overrideSrcType, nameGraph) {
             .catch(function (err) { return cb(err); });
     });
 }
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = Converter;
+exports.convert = convert;
