@@ -4,7 +4,7 @@ var shared_1 = require('./shared');
 function toJson(file) {
     return jsonld_1.promises.fromRDF(file.document)
         .then(function (doc) { return jsonld_1.promises.compact(doc, file.context); })
-        .then(function (doc) { return JSON.stringify(doc); });
+        .then(function (doc) { return JSON.stringify(doc, null, 4); });
 }
 exports.toJson = toJson;
 function n3Writer(file, format) {
