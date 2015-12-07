@@ -5,7 +5,8 @@
         "noImplicitAny": true,
         "suppressImplicitAnyIndexErrors": true,
         "sourceMap": true,
-        "experimentalDecorators": true
+        "experimentalDecorators": true,
+        "declaration": true
     },
     "exclude": [
         "node_modules"

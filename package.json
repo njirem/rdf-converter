@@ -1,37 +1,45 @@
 {
-    "name": "rdf-converter",
-    "version": "0.0.1",
-    "description": "Tool to convert from and to ttl and other RDF description formats",
-    "main": "index.js",
-    "scripts": {
-        "build": "tsc --outFile index.js --removeComments -d",
-        "tsc": "tsc -w",
-        "test": "mocha --recursive src/lib",
-        "wtest": "mocha --recursive --watch src/lib"
-    },
-    "author": "",
-    "license": "Apache-2.0",
-    "dependencies": {
-        "jsonld": "^0.4.2",
-        "minimist": "^1.2.0",
-        "n3": "^0.4.5"
-    },
-    "devDependencies": {
-        "chai": "^3.4.1",
-        "gulp": "github:gulpjs/gulp#4.0",
-        "gulp-rename": "^1.2.2",
-        "mocha": "^2.3.4"
-    },
-    "keywords": [
-        "gulpplugin",
-        "rdf",
-        "jsonld",
-        "nquads",
-        "ntriples",
-        "trig",
-        "ttl"
-    ],
-    "engines": {
-        "node": ">=4.0"
-    }
+  "name": "rdf-converter",
+  "version": "0.0.1",
+  "description": "Tool to convert from and to ttl and other RDF description formats",
+  "main": "release/gulp.js",
+  "typings": "release/gulp.d.ts",
+  "scripts": {
+    "build": "tsc --outFile index.js --removeComments -d",
+    "tsc": "tsc -w",
+    "test": "mocha --recursive src/lib",
+    "wtest": "mocha --recursive --watch src/lib"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "jsonld": "^0.4.2",
+    "minimist": "^1.2.0",
+    "n3": "^0.4.5"
+  },
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "del": "^2.2.0",
+    "gulp": "github:gulpjs/gulp#4.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-typescript": "^2.10.0",
+    "merge2": "^0.3.6",
+    "mocha": "^2.3.4"
+  },
+  "keywords": [
+    "gulpplugin",
+    "rdf",
+    "jsonld",
+    "nquads",
+    "ntriples",
+    "trig",
+    "ttl"
+  ],
+  "engines": {
+    "node": ">=4.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/njirem/rdf-converter.git"
+  }
 }
