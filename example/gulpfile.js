@@ -5,7 +5,7 @@
 const gulp = require('gulp'),
     rename = require('gulp-rename'),
     del = require('del'),
-    rdf = require('./src/gulp');
+    rdf = require('rdf-converter');
 
 const paths = {
     dist: 'out'
@@ -25,7 +25,7 @@ gulp.task('default', gulp.series(
 function rdfConvert(destType, graphName) {
     return () => gulp.src('data/**/*.+(json|trig|nq)')
         .pipe(rename(path => path.basename += '-' + path.extname.substr(1)))
-        .pipe(rdf.Converter(destType, null, graphName))
+        .pipe(rdf.convert(destType, null, graphName))
         .pipe(gulp.dest(paths.dist + '/data/' + rdf.Type[destType].toLowerCase()))
 }
 
