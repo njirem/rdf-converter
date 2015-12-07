@@ -23,7 +23,7 @@ export { Type } from './lib/shared';
  *
  * nameGraph is the graphName for triples that don't have a graphName yet. (TODO: not implemented yet!!)
  */
-export default function Converter(destType: Type, overrideSrcType?: Type, nameGraph?: ((filename: string) => string) | string) {
+export function Convert(destType: Type, overrideSrcType?: Type, nameGraph?: ((filename: string) => string) | string) {
     if (!destType) throw new PluginError(PLUGIN_NAME, 'Missing destination type in function call!')
 
     return through.obj(function(file, enc, cb) {
