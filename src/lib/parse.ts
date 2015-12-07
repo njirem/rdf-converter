@@ -6,7 +6,8 @@ import { Type, DocumentData, n3ToJsonldTriple } from './shared';
 function n3Parser(input: string, format: string) {
     return new Promise<DocumentData>((resolve, reject) => {
         let out: DocumentData = {
-            document: {}
+            document: {},
+            context: {}
         }
 
         Parser({ format: format }).parse(input, (err, triple, context) => {
@@ -16,7 +17,7 @@ function n3Parser(input: string, format: string) {
                 if (!out.document[graphName]) out.document[graphName] = [];
                 out.document[graphName].push(n3ToJsonldTriple(triple));
             } else {
-                out.context = context || {};
+                out.context = context || out.context;
                 resolve(out);
             }
         })

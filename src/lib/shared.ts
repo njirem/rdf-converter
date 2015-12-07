@@ -4,7 +4,7 @@ import {  } from 'jsonld';
 import { Util } from 'n3'
 
 export interface DocumentData {
-    context?: JsonLD.Context;
+    context: JsonLD.Context;
     document: JsonLD.Document
 }
 

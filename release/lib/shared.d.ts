@@ -1,5 +1,5 @@
 export interface DocumentData {
-    context?: JsonLD.Context;
+    context: JsonLD.Context;
     document: JsonLD.Document;
 }
 export declare function n3ToJsonldTriple(n3: N3.Triple): JsonLD.Triple;

@@ -4,7 +4,8 @@ var shared_1 = require('./shared');
 function n3Parser(input, format) {
     return new Promise(function (resolve, reject) {
         var out = {
-            document: {}
+            document: {},
+            context: {}
         };
         n3_1.Parser({ format: format }).parse(input, function (err, triple, context) {
             if (err)
@@ -16,7 +17,7 @@ function n3Parser(input, format) {
                 out.document[graphName].push(shared_1.n3ToJsonldTriple(triple));
             }
             else {
-                out.context = context || {};
+                out.context = context || out.context;
                 resolve(out);
             }
         });
