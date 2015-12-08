@@ -19,6 +19,7 @@ exports.Type = shared_2.Type;
  * It has to be of the Type enum and not Unknown.
  */
 function convert(outType, options) {
+    if (options === void 0) { options = {}; }
     if (!outType)
         throw new gulp_util_1.PluginError(PLUGIN_NAME, 'Missing destination type in function call!');
     return through.obj(function (file, enc, cb) {

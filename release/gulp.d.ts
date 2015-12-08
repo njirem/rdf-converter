@@ -6,7 +6,7 @@ export { Type } from './lib/shared';
  * destType is the destination file type
  * It has to be of the Type enum and not Unknown.
  */
-export declare function convert(outType: Type, options: Options): NodeJS.ReadWriteStream;
+export declare function convert(outType: Type, options?: Options): NodeJS.ReadWriteStream;
 /**
  * The Options object for the convert task
  */

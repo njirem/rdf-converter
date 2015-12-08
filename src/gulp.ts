@@ -20,7 +20,7 @@ export { Type } from './lib/shared';
  * destType is the destination file type
  * It has to be of the Type enum and not Unknown.
  */
-export function convert(outType: Type, options: Options) {
+export function convert(outType: Type, options: Options = {}) {
     if (!outType) throw new PluginError(PLUGIN_NAME, 'Missing destination type in function call!')
 
     return through.obj(function(file, enc, cb) {
