@@ -40,7 +40,9 @@ function toJS(file, jsTemplate) {
 }
 exports.toJS = toJS;
 function quadToJS(quad) {
-    var quadArr = quad.match(/(?:[^\s"]+|"[^"]*")+/g);
+    // Get the array of quad parts, regexp is to catch spaces in quotes
+    var quadArr = quad.match(/(?:[^\s"]+|"[^"]*")+/g)
+        .map(function (resource) { return (resource[0] === '<' && resource[resource.length - 1] === '>') ? resource.slice(1, -1) : resource; });
     for (var i = quadArr.length; i < 4; i++)
         quadArr.push(null);
     return quadArr.map(function (quadPart) { return (!quadPart || n3_1.Util.isBlank(quadPart) || quadPart === '@default') ? 'null' : "'" + quadPart + "'"; })

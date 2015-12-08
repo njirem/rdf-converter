@@ -39,7 +39,10 @@ export function toJS(file: DocumentData, jsTemplate = 'const quads = ${quadArray
         .then(array => jsTemplate.replace(/\$\{\s*quadArray\s*\}/, array))
 }
 function quadToJS(quad: string) {
+    // Get the array of quad parts, regexp is to catch spaces in quotes
     let quadArr = quad.match(/(?:[^\s"]+|"[^"]*")+/g)
+    // Remove the '<>' from resources in NQuads
+        .map(resource => (resource[0] === '<' && resource[resource.length - 1] === '>') ? resource.slice(1, -1) : resource)
 
     for (let i = quadArr.length; i < 4; i++) quadArr.push(null);
 
