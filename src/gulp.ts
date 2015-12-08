@@ -40,7 +40,7 @@ export function convert(outType: Type, options: Options = {}) {
 
         fromType(file.contents.toString(), srcType)
             .then(doc => setDefaultGraphName(doc, name))
-            .then(doc => toType(doc, outType))
+            .then(doc => toType(doc, outType, options.jsTemplate))
             .then(str => {
                 file.contents = new Buffer(str);
                 let p = path.parse(file.path);

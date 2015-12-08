@@ -46,7 +46,7 @@ function quadToJS(quad) {
     return quadArr.map(function (quadPart) { return (!quadPart || n3_1.Util.isBlank(quadPart) || quadPart === '@default') ? 'null' : "'" + quadPart + "'"; })
         .join(',\n        ');
 }
-function toType(file, type) {
+function toType(file, type, jsTemplate) {
     switch (type) {
         case shared_1.Type.Json:
             return toJson(file);
@@ -55,7 +55,7 @@ function toType(file, type) {
         case shared_1.Type.TriG:
             return toTriG(file);
         case shared_1.Type.JS:
-            return toJS(file);
+            return toJS(file, jsTemplate);
     }
 }
 exports.toType = toType;

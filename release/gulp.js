@@ -43,7 +43,7 @@ function convert(outType, options) {
             name = defaultGraphName(file.path);
         parse_1.fromType(file.contents.toString(), srcType)
             .then(function (doc) { return convert_1.setDefaultGraphName(doc, name); })
-            .then(function (doc) { return convert_1.toType(doc, outType); })
+            .then(function (doc) { return convert_1.toType(doc, outType, options.jsTemplate); })
             .then(function (str) {
             file.contents = new Buffer(str);
             var p = path.parse(file.path);

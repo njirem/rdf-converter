@@ -8,13 +8,13 @@ const gulp = require('gulp'),
     rdf = require('rdf-converter');
 
 const paths = {
-    dist: 'out'
-}, testGraph = 'http://testGraph';
+    dist: 'out/'
+}, testGraph = 'http://rdf-converter/graphName';
 
 gulp.task('default', gulp.series(
     clean,
     gulp.parallel(
-        rdfConvert(rdf.Type.Json, { defaultGraphName: 'http://rdf-converter/graphName'}),
+        rdfConvert(rdf.Type.Json, { defaultGraphName: testGraph}),
         rdfConvert(rdf.Type.NQuads),
         rdfConvert(rdf.Type.TriG),
         rdfConvert(rdf.Type.JS, { jsTemplate: 'exports.quads = ${ quadArray };'})
@@ -22,17 +22,17 @@ gulp.task('default', gulp.series(
     ))
 
 
-function rdfConvert(destType) {
+function rdfConvert(destType, options) {
     return () => gulp.src('data/**/*.+(json|trig|nq)')
         // Set the extension in the name, so it can be identified in the output
         .pipe(rename(path => path.basename += '-' + path.extname.substr(1)))
         // Convert the input to the given Destination Type
-        .pipe(rdf.convert(destType))
+        .pipe(rdf.convert(destType, options))
         // Write the output in the folder /data/{Type}
-        .pipe(gulp.dest(paths.dist + '/data/' + rdf.Type[destType].toLowerCase()))
+        .pipe(gulp.dest(paths.dist + rdf.Type[destType].toLowerCase()))
 }
 
 
 function clean() {
-    return del([paths.dist + '/**'])
+    return del([paths.dist + '**'])
 }

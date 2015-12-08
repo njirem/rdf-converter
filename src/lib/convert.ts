@@ -47,7 +47,7 @@ function quadToJS(quad: string) {
         .join(',\n        ')
 }
 
-export function toType(file: DocumentData, type: Type) {
+export function toType(file: DocumentData, type: Type, jsTemplate?: string) {
     switch (type) {
         case Type.Json:
             return toJson(file);
@@ -59,7 +59,7 @@ export function toType(file: DocumentData, type: Type) {
             return toTriG(file)
 
         case Type.JS:
-            return toJS(file);
+            return toJS(file, jsTemplate);
     }
 }
 
