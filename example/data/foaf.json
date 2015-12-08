@@ -1,52 +1,65 @@
 {
-  "@context": {
-    "spider": "http://www.marvel.com/spiderman#",
-    "foaf": "http://xmlns.com/foaf/0.1/",
-    "rel": "http://www.perceive.net/schemas/relationship/"
-  },
-  "@graph": [
-    {
-      "@id": "spider:spiderman",
-      "@type": "foaf:Person",
-      "foaf:name": "Spiderman",
-      "rel:enemyOf": {
-        "@id": "spider:green-goblin"
-      }
+    "@context": {
+        "spider": "http://www.marvel.com/spiderman#",
+        "foaf": "http://xmlns.com/foaf/0.1/",
+        "rel": "http://www.perceive.net/schemas/relationship/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#"
     },
-    {
-      "@id": "spider:peter",
-      "@type": "foaf:Person",
-      "foaf:name": "Peter Parker",
-      "rel:friendOf": {
-        "@id": "spider:harry"
-      }
-    },
-    {
-      "@id": "spider:norman",
-      "@type": "foaf:Person",
-      "foaf:name": "Norman Osborn",
-      "rel:parentOf": {
-        "@id": "spider:harry"
-      }
-    },
-    {
-      "@id": "spider:harry",
-      "@type": "foaf:Person",
-      "foaf:name": "Harry Osborn",
-      "rel:childOf": {
-        "@id": "spider:norman"
-      },
-      "rel:friendOf": {
-        "@id": "spider:peter"
-      }
-    },
-    {
-      "@id": "spider:green-goblin",
-      "@type": "foaf:Person",
-      "foaf:name": "Green Goblin",
-      "rel:enemyOf": {
-        "@id": "spider:spiderman"
-      }
-    }
-  ]
+    "@graph": [
+        {
+            "@id": "spider:spiderman",
+            "@type": "foaf:Person",
+            "foaf:name": "Spiderman",
+            "rel:enemyOf": {
+                "@id": "spider:green-goblin"
+            }
+        },
+        {
+            "@id": "spider:peter",
+            "@type": "foaf:Person",
+            "foaf:name": "Peter Parker",
+            "rel:friendOf": {
+                "@id": "spider:harry"
+            },
+            "foaf:age": {
+                "@type": "xsd:integer",
+                "@value": "28"
+            }
+        },
+        {
+            "@id": "spider:norman",
+            "@type": "foaf:Person",
+            "foaf:name": "Norman Osborn",
+            "rel:parentOf": {
+                "@id": "spider:harry"
+            },
+            "foaf:age": {
+                "@type": "xsd:integer",
+                "@value": "68"
+            }
+        },
+        {
+            "@id": "spider:harry",
+            "@type": "foaf:Person",
+            "foaf:name": "Harry Osborn",
+            "rel:childOf": {
+                "@id": "spider:norman"
+            },
+            "rel:friendOf": {
+                "@id": "spider:peter"
+            },
+            "foaf:age": {
+                "@type": "xsd:integer",
+                "@value": "29"
+            }
+        },
+        {
+            "@id": "spider:green-goblin",
+            "@type": "foaf:Person",
+            "foaf:name": "Green Goblin",
+            "rel:enemyOf": {
+                "@id": "spider:spiderman"
+            }
+        }
+    ]
 }

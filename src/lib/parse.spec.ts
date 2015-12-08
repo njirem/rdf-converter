@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { readFiles, logPromise } from './shared';
+import { readFiles, normalize } from './shared';
 import { promises as jsonld } from 'jsonld';
 import { join } from 'path';
 
@@ -37,13 +37,13 @@ describe('Input', () => {
         before('parse all the files', () => {
             return Promise.all([
                 parse.fromJson(files.json)
-                    .then(file => jsonld.normalize(file.document))
+                    .then(doc => normalize(doc.document))
                     .then(norm => normalized.json = norm),
                 parse.fromNQuads(files.nquads)
-                    .then(file => jsonld.normalize(file.document))
+                    .then(doc => normalize(doc.document))
                     .then(norm => normalized.nquads = norm),
                 parse.fromTriG(files.trig)
-                    .then(file => jsonld.normalize(file.document))
+                    .then(doc => normalize(doc.document))
                     .then(norm => normalized.ttl = norm),
             ])
         })

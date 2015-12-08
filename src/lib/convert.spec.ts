@@ -2,7 +2,7 @@
 import { expect } from 'chai';
 import { promises as jsonld } from 'jsonld';
 import { join } from 'path';
-import { readFile, DocumentData } from './shared';
+import { readFile, DocumentData, normalize } from './shared';
 import * as parse from './parse';
 
 import * as convert from './convert';
@@ -16,27 +16,27 @@ describe('Convert', () => {
 function testForJson(jsonDocument: string) {
     return () => {
         let document: DocumentData;
-        let normalized: JsonLD.Document;
+        let normalized: string;
 
         before('load the exampleJson', () => {
             return readFile(relPath(jsonDocument))
                 .then(file => parse.fromJson(file))
                 .then(doc => document = doc)
-                .then(file => jsonld.normalize(file.document))
+                .then(file => normalize(file.document))
                 .then(nquad => normalized = nquad)
         })
 
         it('should convert to NQuads and back', () => {
             return convert.toNQuads(document)
                 .then(parse.fromNQuads)
-                .then(file => jsonld.normalize(file.document))
+                .then(file => normalize(file.document))
                 .then(norm => expect(norm).to.be.eql(normalized))
         });
 
         it('should convert to TriG and back', () => {
             return convert.toTriG(document)
                 .then(parse.fromTriG)
-                .then(file => jsonld.normalize(file.document))
+                .then(file => normalize(file.document))
                 .then(norm => expect(norm).to.be.eql(normalized))
         });
     }

@@ -17,6 +17,7 @@
   <foaf:Person rdf:about="http://www.marvel.com/spiderman#peter">
     <rel:friendOf rdf:resource="http://www.marvel.com/spiderman#harry"/>
     <foaf:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Peter Parker</foaf:name>
+    <foaf:age rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">28</foaf:age>
   </foaf:Person>
 
   <foaf:Person rdf:about="http://www.marvel.com/spiderman#harry">
@@ -24,11 +25,13 @@
       <foaf:Person rdf:about="http://www.marvel.com/spiderman#norman">
         <rel:parentOf rdf:resource="http://www.marvel.com/spiderman#harry"/>
         <foaf:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Norman Osborn</foaf:name>
+        <foaf:age rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">68</foaf:age>
       </foaf:Person>
     </rel:childOf>
 
     <rel:friendOf rdf:resource="http://www.marvel.com/spiderman#peter"/>
     <foaf:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Harry Osborn</foaf:name>
+    <foaf:age rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">29</foaf:age>
   </foaf:Person>
 
 </rdf:RDF>

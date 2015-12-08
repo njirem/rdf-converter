@@ -17,3 +17,7 @@ export declare enum Type {
 export declare function typeFromFile(filename: string): Type;
 export declare function typeFromString(str: string): Type;
 export declare function logPromise(annotation: string): (val: any) => any;
+/**
+ * Normalize documents so that the same information produces the same unique output
+ */
+export declare function normalize(doc: JsonLD.Document): Promise<string>;

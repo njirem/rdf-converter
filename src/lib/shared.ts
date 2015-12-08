@@ -1,6 +1,6 @@
 import {readFile as fsRead, writeFile as fsWrite} from 'fs';
 import { extname } from 'path';
-import {  } from 'jsonld';
+import { promises as jsonld } from 'jsonld';
 import { Util } from 'n3'
 
 export interface DocumentData {
@@ -41,8 +41,14 @@ export function jsonldToN3Quads(json: JsonLD.Document) {
 function jsonldToN3Resource(json: JsonLD.Resource): string {
     if (json.type === 'IRI') {
         return json.value;
+
+        // Else => data is a literal
+    } else if (json.datatype.lastIndexOf('string') === json.datatype.length - 6) {
+        // datatype is string
+        return Util.createLiteral(json.value);
     } else {
-        return Util.createLiteral(json.value)
+        // datatype is (probably) boolean or integer
+        return Util.createLiteral(json.value, json.datatype);
     }
 }
 
@@ -115,4 +121,12 @@ export function logPromise(annotation: string) {
         }
         return val;
     }
+}
+
+/**
+ * Normalize documents so that the same information produces the same unique output
+ */
+export function normalize(doc: JsonLD.Document): Promise<string> {
+    return jsonld.fromRDF(doc)
+        .then(doc => jsonld.normalize(doc, { format: 'application/nquads' }))
 }

@@ -4,7 +4,7 @@ declare module JsonLD {
 
     type JsonObject = {};
 
-     interface Document {
+    interface Document {
         [name: string]: Triple[]
     }
     interface Triple {
@@ -31,23 +31,25 @@ declare module JsonLD {
     interface JsonLDStatic {
         // compact a document according to a particular context
         // see: http://json-ld.org/spec/latest/json-ld/#compacted-document-form
-        compact(docUrl: string, contextUrl: string, callback: (err: any, compacted: Document) => void): void;
-        compact(doc: Document, context: Context, callback: (err: any, compacted: Document) => void): void;
+        compact(docUrl: string, contextUrl: string, callback: (err: any, compacted: JsonObject) => void): void;
+        compact(doc: JsonObject, context: Context, callback: (err: any, compacted: JsonObject) => void): void;
 
         // expand a document, removing its context
         // see: http://json-ld.org/spec/latest/json-ld/#expanded-document-form
-        expand(compactedUrl: string, callback: (err: any, expanded: Document) => void): void;
-        expand(compacted: Document, callback: (err: any, expanded: Document) => void): void;
+        expand(compactedUrl: string, callback: (err: any, expanded: JsonObject) => void): void;
+        expand(compacted: JsonObject, callback: (err: any, expanded: JsonObject) => void): void;
 
         // flatten a document
         // see: http://json-ld.org/spec/latest/json-ld/#flattened-document-form
-        // flatten()
+        flatten(docUrl: string, callback: (err: any, flattened: JsonObject) => void): void;
+        flatten(doc: JsonObject, callback: (err: any, flattened: JsonObject) => void): void;
+
 
         // frame a document
         // see: http://json-ld.org/spec/latest/json-ld-framing/#introduction
         // frame()
-        normalize(docUrl: string, options: Options, callback: (err: any, normalized: Document | string) => void): void;
-        normalize(doc: Document, options: Options, callback: (err: any, normalized: Document | string) => void): void;
+        normalize(docUrl: string, options: Options, callback: (err: any, normalized: JsonObject | string) => void): void;
+        normalize(doc: JsonObject, options: Options, callback: (err: any, normalized: JsonObject | string) => void): void;
 
         // serialize a document to N-Quads (RDF)
         toRDF(doc: Document, options: Options, callback: (err: any, nquads: string) => void): void;
@@ -64,26 +66,27 @@ declare module JsonLD {
         promises: {
             // compact a document according to a particular context
             // see: http://json-ld.org/spec/latest/json-ld/#compacted-document-form
-            compact(docUrl: string, contextUrl: string): Promise<Document>;
+            compact(docUrl: string, contextUrl: string): Promise<JsonObject>;
             compact(doc: JsonObject, context: Context): Promise<JsonObject>;
 
             // expand a document, removing its context
             // see: http://json-ld.org/spec/latest/json-ld/#expanded-document-form
-            expand(compactedUrl: string): Promise<{}>;
-            expand(compacted: Document): Promise<{}>;
+            expand(compactedUrl: string): Promise<JsonObject>;
+            expand(compacted: JsonObject): Promise<JsonObject>;
 
             // flatten a document
             // see: http://json-ld.org/spec/latest/json-ld/#flattened-document-form
-            // flatten()
+            flatten(docUrl: string): Promise<JsonObject>;
+            flatten(doc: JsonObject): Promise<JsonObject>;
 
             // frame a document
             // see: http://json-ld.org/spec/latest/json-ld-framing/#introduction
             // frame()
-            normalize(docUrl: string): Promise<Document>;
-            normalize(doc: Document): Promise<Document>;
+            normalize(docUrl: string): Promise<JsonObject>;
+            normalize(doc: JsonObject): Promise<JsonObject>;
             normalize(docUrl: string, options: Options): Promise<string>;
-            normalize(doc: Document, options: Options): Promise<string>;
-            normalize(doc: Document | string, options?: Options): Promise<Document | string>;
+            normalize(doc: JsonObject, options: Options): Promise<string>;
+            normalize(doc: JsonObject | string, options?: Options): Promise<JsonObject | string>;
 
             // serialize a document to N-Quads (RDF)
             toRDF(doc: Document, options: Options): Promise<string>;
@@ -96,7 +99,7 @@ declare module JsonLD {
             // register a custom synchronous RDF parser
             registerRDFParser(contentType: string, func: (input: string) => Document): void;
             // register a custom async-callback-based RDF parser
-            registerRDFParser(contentType: string, func: (input: string) => Promise<Document>): void; 
+            registerRDFParser(contentType: string, func: (input: string) => Promise<Document>): void;
         }
     }
 }

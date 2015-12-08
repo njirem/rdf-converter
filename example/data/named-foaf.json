@@ -3,7 +3,8 @@
         "@context": {
             "spider": "http://www.marvel.com/spiderman#",
             "foaf": "http://xmlns.com/foaf/0.1/",
-            "rel": "http://www.perceive.net/schemas/relationship/"
+            "rel": "http://www.perceive.net/schemas/relationship/",
+            "xsd": "http://www.w3.org/2001/XMLSchema#"
         },
         "@graph": [
             {
@@ -23,6 +24,10 @@
                         "foaf:name": "Peter Parker",
                         "rel:friendOf": {
                             "@id": "spider:harry"
+                        },
+                        "foaf:age": {
+                            "@type": "xsd:integer",
+                            "@value": "28"
                         }
                     }
                 ]
@@ -33,6 +38,10 @@
                 "foaf:name": "Norman Osborn",
                 "rel:parentOf": {
                     "@id": "spider:harry"
+                },
+                "foaf:age": {
+                    "@type": "xsd:integer",
+                    "@value": "68"
                 }
             },
             {
@@ -44,6 +53,10 @@
                 },
                 "rel:friendOf": {
                     "@id": "spider:peter"
+                },
+                "foaf:age": {
+                    "@type": "xsd:integer",
+                    "@value": "29"
                 }
             },
             {

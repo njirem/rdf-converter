@@ -41,10 +41,24 @@ function toJS(file, jsTemplate) {
 exports.toJS = toJS;
 function quadToJS(quad) {
     // Get the array of quad parts, regexp is to catch spaces in quotes
-    var quadArr = quad.match(/(?:[^\s"]+|"[^"]*")+/g)
-        .map(function (resource) { return (resource[0] === '<' && resource[resource.length - 1] === '>') ? resource.slice(1, -1) : resource; });
-    for (var i = quadArr.length; i < 4; i++)
-        quadArr.push(null);
+    var quadArr = quad.match(/(?:[^\s"]+|"[^"]*")+/g);
+    for (var i = 0; i < 4; i++) {
+        var qPart = quadArr[i];
+        if (!qPart || n3_1.Util.isBlank(qPart) || qPart === '@default') {
+            // Empty === null
+            quadArr[i] = 'null';
+        }
+        else if (qPart[0] === '<' && qPart[qPart.length - 1] === '>') {
+            // Remove the '<>' from resources in NQuads
+            quadArr[i] = qPart.slice(1, -1);
+        }
+        else {
+            var m = qPart.match(/^"(.*)"(?:\^\^<http:\/\/www.w3.org\/2001\/XMLSchema#(.*)>)?$/);
+            // If it's a string, it should get quotes
+            if (!m[1] || m[1] === 'string')
+                quadArr[i] = "'" + qPart + "'";
+        }
+    }
     return quadArr.map(function (quadPart) { return (!quadPart || n3_1.Util.isBlank(quadPart) || quadPart === '@default') ? 'null' : "'" + quadPart + "'"; })
         .join(',\n        ');
 }

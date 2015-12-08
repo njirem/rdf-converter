@@ -1,5 +1,6 @@
 var fs_1 = require('fs');
 var path_1 = require('path');
+var jsonld_1 = require('jsonld');
 var n3_1 = require('n3');
 function n3ToJsonldTriple(n3) {
     return {
@@ -38,8 +39,13 @@ function jsonldToN3Resource(json) {
     if (json.type === 'IRI') {
         return json.value;
     }
-    else {
+    else if (json.datatype.lastIndexOf('string') === json.datatype.length - 6) {
+        // datatype is string
         return n3_1.Util.createLiteral(json.value);
+    }
+    else {
+        // datatype is (probably) boolean or integer
+        return n3_1.Util.createLiteral(json.value, json.datatype);
     }
 }
 function writeFile(filename, data) {
@@ -119,3 +125,11 @@ function logPromise(annotation) {
     };
 }
 exports.logPromise = logPromise;
+/**
+ * Normalize documents so that the same information produces the same unique output
+ */
+function normalize(doc) {
+    return jsonld_1.promises.fromRDF(doc)
+        .then(function (doc) { return jsonld_1.promises.normalize(doc, { format: 'application/nquads' }); });
+}
+exports.normalize = normalize;
