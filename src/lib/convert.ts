@@ -31,11 +31,12 @@ export function toNQuads(file: DocumentData): Promise<string> {
 }
 
 
-export function toJS(file: DocumentData): Promise<string> {
+export function toJS(file: DocumentData, jsTemplate = 'const quads = ${quadArray};\nexport default quads;'): Promise<string> {
     return toNQuads(file)
         .then(nquads => nquads.split(/\s*\.\s*[\r|\n]/).filter(nquads => !!nquads))
         .then(nquads => nquads.map(quad => `[\n        ${quadToJS(quad) }\n    ]`))
-        .then(nquads => `const quads = [\n    ${nquads.join(',') }\n];\nexport default quads;`)
+        .then(nquads => `[\n    ${nquads.join(',') }\n]`)
+        .then(array => jsTemplate.replace(/\$\{\s*quadArray\s*\}/, array))
 }
 function quadToJS(quad: string) {
     let quadArr = quad.match(/(?:[^\s"]+|"[^"]*")+/g)

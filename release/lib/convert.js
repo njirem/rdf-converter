@@ -30,11 +30,13 @@ function toNQuads(file) {
     return n3Writer(file, 'N-Quads');
 }
 exports.toNQuads = toNQuads;
-function toJS(file) {
+function toJS(file, jsTemplate) {
+    if (jsTemplate === void 0) { jsTemplate = 'const quads = ${quadArray};\nexport default quads;'; }
     return toNQuads(file)
         .then(function (nquads) { return nquads.split(/\s*\.\s*[\r|\n]/).filter(function (nquads) { return !!nquads; }); })
         .then(function (nquads) { return nquads.map(function (quad) { return ("[\n        " + quadToJS(quad) + "\n    ]"); }); })
-        .then(function (nquads) { return ("const quads = [\n    " + nquads.join(',') + "\n];\nexport default quads;"); });
+        .then(function (nquads) { return ("[\n    " + nquads.join(',') + "\n]"); })
+        .then(function (array) { return jsTemplate.replace(/\$\{\s*quadArray\s*\}/, array); });
 }
 exports.toJS = toJS;
 function quadToJS(quad) {
