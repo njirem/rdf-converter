@@ -40,7 +40,7 @@ export function convert(outType: Type, options: Options = {}) {
 
         fromType(file.contents.toString(), srcType)
             .then(doc => setDefaultGraphName(doc, name))
-            .then(doc => toType(doc, outType, options.jsTemplate))
+            .then(doc => toType(doc, outType, options))
             .then(str => {
                 file.contents = new Buffer(str);
                 let p = path.parse(file.path);
@@ -82,4 +82,10 @@ export interface Options {
      * Default is: 'const quads = ${quadArray};\nexport default quads;'
      */
     jsTemplate?: string,
+
+    /**
+     * If outputType is Type.JS, this attribute can set the literal output to compact mode
+     * In this mode it will output the compact literal output according to: http://www.w3.org/TR/turtle/#literals
+     */
+    compact?: boolean,
 }

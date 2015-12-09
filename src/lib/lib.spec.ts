@@ -14,9 +14,17 @@ const testData = [
             nquads: '<http://animal/cat> <http://type/predator> "true"^^<http://www.w3.org/2001/XMLSchema#boolean>.\n',
             js: `[
     [
-        'http://animal/cat',
-        'http://type/predator',
+        '<http://animal/cat>',
+        '<http://type/predator>',
         '"true"^^<http://www.w3.org/2001/XMLSchema#boolean>',
+        null
+    ]
+]`,
+            jsCompact: `[
+    [
+        '<http://animal/cat>',
+        '<http://type/predator>',
+        'true',
         null
     ]
 ]`,
@@ -36,9 +44,17 @@ const testData = [
             nquads: '<http://animal/cat> <http://count> "2"^^<http://www.w3.org/2001/XMLSchema#integer>.\n',
             js: `[
     [
-        'http://animal/cat',
-        'http://count',
+        '<http://animal/cat>',
+        '<http://count>',
         '"2"^^<http://www.w3.org/2001/XMLSchema#integer>',
+        null
+    ]
+]`,
+            jsCompact: `[
+    [
+        '<http://animal/cat>',
+        '<http://count>',
+        '2',
         null
     ]
 ]`,
@@ -58,8 +74,16 @@ const testData = [
             nquads: '<http://animal/cat> <http://name> "Fluffy".\n',
             js: `[
     [
-        'http://animal/cat',
-        'http://name',
+        '<http://animal/cat>',
+        '<http://name>',
+        '"Fluffy"',
+        null
+    ]
+]`,
+            jsCompact: `[
+    [
+        '<http://animal/cat>',
+        '<http://name>',
         '"Fluffy"',
         null
     ]
@@ -77,9 +101,17 @@ const testData = [
             nquads: '<http://animal/cat> <http://rel/pet> <http://animal/human>.\n',
             js: `[
     [
-        'http://animal/cat',
-        'http://rel/pet',
-        'http://animal/human',
+        '<http://animal/cat>',
+        '<http://rel/pet>',
+        '<http://animal/human>',
+        null
+    ]
+]`,
+            jsCompact: `[
+    [
+        '<http://animal/cat>',
+        '<http://rel/pet>',
+        '<http://animal/human>',
         null
     ]
 ]`,
@@ -127,8 +159,13 @@ function testConversion(files: Files, type: Type) {
         });
 
         it('to js', () => {
-            return convert.toJS(doc, '${quadArray}')
+            return convert.toJS(doc, { jsTemplate: '${quadArray}' })
                 .then(output => expect(output).to.be.equal(files.js))
+        });
+
+        it('to compact js', () => {
+            return convert.toJS(doc, { jsTemplate: '${quadArray}', compact: true })
+                .then(output => expect(output).to.be.equal(files.jsCompact))
         });
     }
 }
@@ -137,5 +174,6 @@ interface Files {
     trig: string;
     nquads: string;
     js: string;
+    jsCompact: string;
     json: string;
 }

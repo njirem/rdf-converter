@@ -30,38 +30,50 @@ export function toNQuads(file: DocumentData): Promise<string> {
     return n3Writer(file, 'N-Quads');
 }
 
+export interface JsOptions {
+    jsTemplate?: string;
+    compact?: boolean;
+}
+export function toJS(file: DocumentData, jsOptions: JsOptions = {}): Promise<string> {
+    let jsTemplate = jsOptions.jsTemplate || 'const quads = ${quadArray};\nexport default quads;';
+    let compact = jsOptions.compact || false;
 
-export function toJS(file: DocumentData, jsTemplate = 'const quads = ${quadArray};\nexport default quads;'): Promise<string> {
     return toNQuads(file)
         .then(nquads => nquads.split(/\s*\.\s*[\r|\n]/).filter(nquads => !!nquads))
-        .then(nquads => nquads.map(quad => `[\n        ${quadToJS(quad) }\n    ]`))
+        .then(nquads => nquads.map(quad => `[\n        ${quadToJS(quad, compact) }\n    ]`))
         .then(nquads => `[\n    ${nquads.join(',') }\n]`)
         .then(array => jsTemplate.replace(/\$\{\s*quadArray\s*\}/, array))
 }
 
-function quadToJS(quad: string) {
+function quadToJS(quad: string, compact = false) {
     // Get the array of quad parts, regexp is to catch spaces in quotes
     let quadArr = quad.match(/(?:[^\s"]+|"[^"]*")+/g)
 
     for (let i = 0; i < 4; i++) {
         let qPart = quadArr[i];
+
         if (!qPart || Util.isBlank(qPart) || qPart === '@default') {
             // Empty === null
             quadArr[i] = 'null';
-        } else if (qPart[0] === '<' && qPart[qPart.length - 1] === '>') {
-            // Remove the '<>' from resources in NQuads
-            quadArr[i] = `'${qPart.slice(1, -1)}'`;
-        } else {
-            // it's probably a literal
-            quadArr[i] = `'${qPart}'`
+            continue;
         }
+
+        if (compact && Util.isLiteral(qPart)) {
+            // TODO: The probably is a better way to do this..
+            if (Util.getLiteralType(qPart).match(/^[<]?http:\/\/www.w3.org\/2001\/XMLSchema#(.*)[>]?$/)[1] === 'string') {
+                quadArr[i] = `"${Util.getLiteralValue(qPart) }"`;
+            } else {
+                quadArr[i] = Util.getLiteralValue(qPart)
+            }
+        }
+        quadArr[i] = `'${quadArr[i]}'`;
     }
 
 
     return quadArr.join(',\n        ')
 }
 
-export function toType(file: DocumentData, type: Type, jsTemplate?: string) {
+export function toType(file: DocumentData, type: Type, jsOptions?: JsOptions) {
     switch (type) {
         case Type.Json:
             return toJson(file);
@@ -73,7 +85,7 @@ export function toType(file: DocumentData, type: Type, jsTemplate?: string) {
             return toTriG(file)
 
         case Type.JS:
-            return toJS(file, jsTemplate);
+            return toJS(file, jsOptions);
     }
 }
 

@@ -30,16 +30,19 @@ function toNQuads(file) {
     return n3Writer(file, 'N-Quads');
 }
 exports.toNQuads = toNQuads;
-function toJS(file, jsTemplate) {
-    if (jsTemplate === void 0) { jsTemplate = 'const quads = ${quadArray};\nexport default quads;'; }
+function toJS(file, jsOptions) {
+    if (jsOptions === void 0) { jsOptions = {}; }
+    var jsTemplate = jsOptions.jsTemplate || 'const quads = ${quadArray};\nexport default quads;';
+    var compact = jsOptions.compact || false;
     return toNQuads(file)
         .then(function (nquads) { return nquads.split(/\s*\.\s*[\r|\n]/).filter(function (nquads) { return !!nquads; }); })
-        .then(function (nquads) { return nquads.map(function (quad) { return ("[\n        " + quadToJS(quad) + "\n    ]"); }); })
+        .then(function (nquads) { return nquads.map(function (quad) { return ("[\n        " + quadToJS(quad, compact) + "\n    ]"); }); })
         .then(function (nquads) { return ("[\n    " + nquads.join(',') + "\n]"); })
         .then(function (array) { return jsTemplate.replace(/\$\{\s*quadArray\s*\}/, array); });
 }
 exports.toJS = toJS;
-function quadToJS(quad) {
+function quadToJS(quad, compact) {
+    if (compact === void 0) { compact = false; }
     // Get the array of quad parts, regexp is to catch spaces in quotes
     var quadArr = quad.match(/(?:[^\s"]+|"[^"]*")+/g);
     for (var i = 0; i < 4; i++) {
@@ -47,19 +50,22 @@ function quadToJS(quad) {
         if (!qPart || n3_1.Util.isBlank(qPart) || qPart === '@default') {
             // Empty === null
             quadArr[i] = 'null';
+            continue;
         }
-        else if (qPart[0] === '<' && qPart[qPart.length - 1] === '>') {
-            // Remove the '<>' from resources in NQuads
-            quadArr[i] = "'" + qPart.slice(1, -1) + "'";
+        if (compact && n3_1.Util.isLiteral(qPart)) {
+            // TODO: The probably is a better way to do this..
+            if (n3_1.Util.getLiteralType(qPart).match(/^[<]?http:\/\/www.w3.org\/2001\/XMLSchema#(.*)[>]?$/)[1] === 'string') {
+                quadArr[i] = "\"" + n3_1.Util.getLiteralValue(qPart) + "\"";
+            }
+            else {
+                quadArr[i] = n3_1.Util.getLiteralValue(qPart);
+            }
         }
-        else {
-            // it's probably a literal
-            quadArr[i] = "'" + qPart + "'";
-        }
+        quadArr[i] = "'" + quadArr[i] + "'";
     }
     return quadArr.join(',\n        ');
 }
-function toType(file, type, jsTemplate) {
+function toType(file, type, jsOptions) {
     switch (type) {
         case shared_1.Type.Json:
             return toJson(file);
@@ -68,7 +74,7 @@ function toType(file, type, jsTemplate) {
         case shared_1.Type.TriG:
             return toTriG(file);
         case shared_1.Type.JS:
-            return toJS(file, jsTemplate);
+            return toJS(file, jsOptions);
     }
 }
 exports.toType = toType;

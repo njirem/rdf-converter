@@ -31,4 +31,9 @@ export interface Options {
      * Default is: 'const quads = ${quadArray};\nexport default quads;'
      */
     jsTemplate?: string;
+    /**
+     * If outputType is Type.JS, this attribute can set the literal output to compact mode
+     * In this mode it will output the compact literal output according to: http://www.w3.org/TR/turtle/#literals
+     */
+    compact?: boolean;
 }
