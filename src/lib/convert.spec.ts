@@ -10,9 +10,9 @@ import * as convert from './convert';
 describe('Convert', () => {
     describe('from json input file with triples', testForJson('../../example/data/foaf.json'))
     describe('from json input file with quads', testForJson('../../example/data/named-foaf.json'))
+
 });
 
-// FIXME: Something is wrong with this test, normalized JsonLD to nquads don't produce the right code
 function testForJson(jsonDocument: string) {
     return () => {
         let document: DocumentData;
@@ -41,7 +41,6 @@ function testForJson(jsonDocument: string) {
         });
     }
 }
-
 
 function relPath(path: string) {
     return join(__dirname, path)

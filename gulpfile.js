@@ -4,7 +4,9 @@ const gulp = require('gulp'),
     ts = require('gulp-typescript');
 
 const tsProject = ts.createProject('tsconfig.json', {
-    noExternalResolve: 'true'
+    noExternalResolve: true,
+    declaration: true,
+    sourceMap: false
 })
 
 const paths = {

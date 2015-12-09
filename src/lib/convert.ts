@@ -50,18 +50,20 @@ function quadToJS(quad: string) {
             quadArr[i] = 'null';
         } else if (qPart[0] === '<' && qPart[qPart.length - 1] === '>') {
             // Remove the '<>' from resources in NQuads
-            quadArr[i] = qPart.slice(1, -1);
+            quadArr[i] = `'${qPart.slice(1, -1)}'`;
         } else {
             let m = qPart.match(/^"(.*)"(?:\^\^<http:\/\/www.w3.org\/2001\/XMLSchema#(.*)>)?$/);
             // If it's a string, it should get quotes
-            if (!m[1] || m[1] === 'string') quadArr[i] = `'${qPart}'`
-            // Else it is an integer or boolean and shouldn't have any quotes, so stays as is
+            if (!m[2] || m[2] === 'string') quadArr[i] = `'${qPart}'`
+            // If it is a literal but not a string it is an integer or boolean and shouldn't have any quotes, so stays as is
+            else if (m[1]) quadArr[i] = m[1]
+
+            // If it's not any of this, I don't know... just let is pass
         }
     }
 
 
-    return quadArr.map(quadPart => (!quadPart || Util.isBlank(quadPart) || quadPart === '@default') ? 'null' : `'${quadPart}'`)
-        .join(',\n        ')
+    return quadArr.join(',\n        ')
 }
 
 export function toType(file: DocumentData, type: Type, jsTemplate?: string) {

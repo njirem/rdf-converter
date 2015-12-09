@@ -50,17 +50,18 @@ function quadToJS(quad) {
         }
         else if (qPart[0] === '<' && qPart[qPart.length - 1] === '>') {
             // Remove the '<>' from resources in NQuads
-            quadArr[i] = qPart.slice(1, -1);
+            quadArr[i] = "'" + qPart.slice(1, -1) + "'";
         }
         else {
             var m = qPart.match(/^"(.*)"(?:\^\^<http:\/\/www.w3.org\/2001\/XMLSchema#(.*)>)?$/);
             // If it's a string, it should get quotes
-            if (!m[1] || m[1] === 'string')
+            if (!m[2] || m[2] === 'string')
                 quadArr[i] = "'" + qPart + "'";
+            else if (m[1])
+                quadArr[i] = m[1];
         }
     }
-    return quadArr.map(function (quadPart) { return (!quadPart || n3_1.Util.isBlank(quadPart) || quadPart === '@default') ? 'null' : "'" + quadPart + "'"; })
-        .join(',\n        ');
+    return quadArr.join(',\n        ');
 }
 function toType(file, type, jsTemplate) {
     switch (type) {
