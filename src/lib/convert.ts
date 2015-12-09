@@ -52,13 +52,8 @@ function quadToJS(quad: string) {
             // Remove the '<>' from resources in NQuads
             quadArr[i] = `'${qPart.slice(1, -1)}'`;
         } else {
-            let m = qPart.match(/^"(.*)"(?:\^\^<http:\/\/www.w3.org\/2001\/XMLSchema#(.*)>)?$/);
-            // If it's a string, it should get quotes
-            if (!m[2] || m[2] === 'string') quadArr[i] = `'${qPart}'`
-            // If it is a literal but not a string it is an integer or boolean and shouldn't have any quotes, so stays as is
-            else if (m[1]) quadArr[i] = m[1]
-
-            // If it's not any of this, I don't know... just let is pass
+            // it's probably a literal
+            quadArr[i] = `'${qPart}'`
         }
     }
 

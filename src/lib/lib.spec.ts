@@ -8,7 +8,7 @@ import * as convert from './convert';
 
 const testData = [
     {
-        name: 'Boolean Literal',
+        name: 'Boolean Literals',
         files: {
             trig: '<http://animal/cat> <http://type/predator> "true"^^<http://www.w3.org/2001/XMLSchema#boolean>.\n',
             nquads: '<http://animal/cat> <http://type/predator> "true"^^<http://www.w3.org/2001/XMLSchema#boolean>.\n',
@@ -16,7 +16,7 @@ const testData = [
     [
         'http://animal/cat',
         'http://type/predator',
-        true,
+        '"true"^^<http://www.w3.org/2001/XMLSchema#boolean>',
         null
     ]
 ]`,
@@ -30,7 +30,7 @@ const testData = [
         }
     },
     {
-        name: 'Integer Literal',
+        name: 'Integer Literals',
         files: {
             trig: '<http://animal/cat> <http://count> "2"^^<http://www.w3.org/2001/XMLSchema#integer>.\n',
             nquads: '<http://animal/cat> <http://count> "2"^^<http://www.w3.org/2001/XMLSchema#integer>.\n',
@@ -38,7 +38,7 @@ const testData = [
     [
         'http://animal/cat',
         'http://count',
-        2,
+        '"2"^^<http://www.w3.org/2001/XMLSchema#integer>',
         null
     ]
 ]`,
@@ -52,7 +52,7 @@ const testData = [
         }
     },
     {
-        name: 'String Literal',
+        name: 'String Literals',
         files: {
             trig: '<http://animal/cat> <http://name> "Fluffy".\n',
             nquads: '<http://animal/cat> <http://name> "Fluffy".\n',
@@ -71,7 +71,7 @@ const testData = [
         }
     },
     {
-        name: 'Relation',
+        name: 'Relations',
         files: {
             trig: '<http://animal/cat> <http://rel/pet> <http://animal/human>.\n',
             nquads: '<http://animal/cat> <http://rel/pet> <http://animal/human>.\n',
