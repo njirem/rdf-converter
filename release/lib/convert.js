@@ -53,12 +53,8 @@ function quadToJS(quad) {
             quadArr[i] = "'" + qPart.slice(1, -1) + "'";
         }
         else {
-            var m = qPart.match(/^"(.*)"(?:\^\^<http:\/\/www.w3.org\/2001\/XMLSchema#(.*)>)?$/);
-            // If it's a string, it should get quotes
-            if (!m[2] || m[2] === 'string')
-                quadArr[i] = "'" + qPart + "'";
-            else if (m[1])
-                quadArr[i] = m[1];
+            // it's probably a literal
+            quadArr[i] = "'" + qPart + "'";
         }
     }
     return quadArr.join(',\n        ');
