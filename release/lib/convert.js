@@ -1,3 +1,4 @@
+"use strict";
 var jsonld_1 = require('jsonld');
 var n3_1 = require('n3');
 var shared_1 = require('./shared');
@@ -35,35 +36,42 @@ function toJS(file, jsOptions) {
     var jsTemplate = jsOptions.jsTemplate || 'const quads = ${quadArray};\nexport default quads;';
     var compact = jsOptions.compact || false;
     return toNQuads(file)
-        .then(function (nquads) { return nquads.split(/\s*\.\s*[\r|\n]/).filter(function (nquads) { return !!nquads; }); })
-        .then(function (nquads) { return nquads.map(function (quad) { return ("[\n        " + quadToJS(quad, compact) + "\n    ]"); }); })
-        .then(function (nquads) { return ("[\n    " + nquads.join(',') + "\n]"); })
-        .then(function (array) { return jsTemplate.replace(/\$\{\s*quadArray\s*\}/, array); });
+        .then(function (nquads) {
+        var quadArrays = nquads
+            .split(/\s*\.\s*[\r|\n]/)
+            .filter(function (nquads) { return !!nquads; })
+            .map(function (quad) { return ("[\n        " + quadToJS(quad, compact) + "\n    ]"); });
+        var array = "[\n    " + quadArrays.join(',') + "\n]";
+        return jsTemplate.replace(/\$\{\s*quadArray\s*\}/, array);
+    });
 }
 exports.toJS = toJS;
 function quadToJS(quad, compact) {
     if (compact === void 0) { compact = false; }
     // Get the array of quad parts, regexp is to catch spaces in quotes
-    var quadArr = quad.match(/(?:[^\s"]+|"[^"]*")+/g);
-    for (var i = 0; i < 4; i++) {
-        var qPart = quadArr[i];
-        if (!qPart || n3_1.Util.isBlank(qPart) || qPart === '@default') {
-            // Empty === null
-            quadArr[i] = 'null';
-            continue;
+    var parts = quad.match(/(?:[^\s"]|"(?:[^"\\]|\\.)*")+/g);
+    while (parts.length < 4)
+        parts.push(null);
+    return parts
+        .map(function (part, index) {
+        if (part == null || index === 3 && (part === '@default' || n3_1.Util.isBlank(part))) {
+            return 'null';
         }
-        if (compact && n3_1.Util.isLiteral(qPart)) {
-            // TODO: The probably is a better way to do this..
-            if (n3_1.Util.getLiteralType(qPart).match(/^[<]?http:\/\/www.w3.org\/2001\/XMLSchema#(.*)[>]?$/)[1] === 'string') {
-                quadArr[i] = "\"" + n3_1.Util.getLiteralValue(qPart) + "\"";
+        if (compact && n3_1.Util.isLiteral(part)) {
+            var type = n3_1.Util.getLiteralType(part);
+            if (/^<?http:\/\/www.w3.org\/2001\/XMLSchema#string>?$/.test(type)) {
+                return "'\"" + escape(n3_1.Util.getLiteralValue(part)) + "\"'";
             }
             else {
-                quadArr[i] = n3_1.Util.getLiteralValue(qPart);
+                return "'" + escape(n3_1.Util.getLiteralValue(part)) + "'";
             }
         }
-        quadArr[i] = "'" + quadArr[i] + "'";
-    }
-    return quadArr.join(',\n        ');
+        return "'" + escape(part) + "'";
+    })
+        .join(',\n        ');
+}
+function escape(s) {
+    return s.replace(/\\/, '\\\\').replace(/'/g, '\\\'');
 }
 function toType(file, type, jsOptions) {
     switch (type) {

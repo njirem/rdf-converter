@@ -21,10 +21,7 @@
             "rel:friendOf": {
                 "@id": "spider:harry"
             },
-            "foaf:age": {
-                "@type": "xsd:integer",
-                "@value": "28"
-            }
+            "foaf:age": 28
         },
         {
             "@id": "spider:norman",
@@ -33,10 +30,7 @@
             "rel:parentOf": {
                 "@id": "spider:harry"
             },
-            "foaf:age": {
-                "@type": "xsd:integer",
-                "@value": "68"
-            }
+            "foaf:age": 68
         },
         {
             "@id": "spider:harry",
@@ -48,10 +42,7 @@
             "rel:friendOf": {
                 "@id": "spider:peter"
             },
-            "foaf:age": {
-                "@type": "xsd:integer",
-                "@value": "29"
-            }
+            "foaf:age": 29
         },
         {
             "@id": "spider:green-goblin",
@@ -60,6 +51,11 @@
             "rel:enemyOf": {
                 "@id": "spider:spiderman"
             }
+        },
+        {
+            "@id": "spider:apostrophe-man",
+            "@type": "foaf:Person",
+            "foaf:name": "Apostrophe\" Man'"
         }
     ]
 }

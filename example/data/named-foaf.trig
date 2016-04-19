@@ -7,30 +7,34 @@ spider:peter {
     spider:peter
     a foaf:Person ;
     rel:friendOf spider:harry ;
-    foaf:age "28"^^xsd:integer ;
-    foaf:name "Peter Parker"^^xsd:string .
+    foaf:age 28 ;
+    foaf:name "Peter Parker" .
 
     spider:spiderman
     a foaf:Person ;
     rel:enemyOf spider:green-goblin ;
-    foaf:name "Spiderman"^^xsd:string .
+    foaf:name "Spiderman" .
 }
 
 spider:green-goblin
   a foaf:Person ;
   rel:enemyOf spider:spiderman ;
-  foaf:name "Green Goblin"^^xsd:string .
+  foaf:name "Green Goblin" .
 
 
 spider:harry
   a foaf:Person ;
   rel:childOf spider:norman ;
   rel:friendOf spider:peter ;
-  foaf:age "29"^^xsd:integer ;
-  foaf:name "Harry Osborn"^^xsd:string .
+  foaf:age 29 ;
+  foaf:name "Harry Osborn" .
 
 spider:norman
   a foaf:Person ;
   rel:parentOf spider:harry ;
-  foaf:age "68"^^xsd:integer ;
-  foaf:name "Norman Osborn"^^xsd:string .
+  foaf:age 68 ;
+  foaf:name "Norman Osborn" .
+
+spider:apostrophe-man
+  a foaf:Person ;
+  foaf:name "Apostrophe\" Man'" .

@@ -5,7 +5,7 @@
 const gulp = require('gulp'),
     rename = require('gulp-rename'),
     del = require('del'),
-    rdf = require('rdf-converter');
+    rdf = require('../release/gulp');
 
 const paths = {
     dist: 'out/'

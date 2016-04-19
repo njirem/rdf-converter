@@ -70,13 +70,13 @@ const testData = [
     {
         name: 'String Literals',
         files: {
-            trig: '<http://animal/cat> <http://name> "Fluffy".\n',
-            nquads: '<http://animal/cat> <http://name> "Fluffy".\n',
+            trig: '<http://animal/cat> <http://name> "Fluffy"^^<http://www.w3.org/2001/XMLSchema#string>.\n',
+            nquads: '<http://animal/cat> <http://name> "Fluffy"^^<http://www.w3.org/2001/XMLSchema#string>.\n',
             js: `[
     [
         '<http://animal/cat>',
         '<http://name>',
-        '"Fluffy"',
+        '"Fluffy"^^<http://www.w3.org/2001/XMLSchema#string>',
         null
     ]
 ]`,

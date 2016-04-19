@@ -34,4 +34,8 @@
     <foaf:age rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">29</foaf:age>
   </foaf:Person>
 
+  <foaf:Person rdf:about="http://www.marvel.com/spiderman#apostrophe-man">
+    <foaf:name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Apostrophe" Man'</foaf:name>
+  </foaf:Person>
+
 </rdf:RDF>

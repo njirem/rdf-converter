@@ -43,9 +43,9 @@ function jsonldToN3Resource(json: JsonLD.Resource): string {
         return json.value;
 
         // Else => data is a literal
-    } else if (json.datatype.lastIndexOf('string') === json.datatype.length - 6) {
-        // datatype is string
-        return Util.createLiteral(json.value);
+    // } else if (json.datatype.lastIndexOf('string') === json.datatype.length - 6) {
+    //     // datatype is string
+    //     return Util.createLiteral(json.value);
     } else {
         // datatype is (probably) boolean or integer
         return Util.createLiteral(json.value, json.datatype);

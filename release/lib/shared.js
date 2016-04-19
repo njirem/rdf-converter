@@ -1,3 +1,4 @@
+"use strict";
 var fs_1 = require('fs');
 var path_1 = require('path');
 var jsonld_1 = require('jsonld');
@@ -38,10 +39,6 @@ exports.jsonldToN3Quads = jsonldToN3Quads;
 function jsonldToN3Resource(json) {
     if (json.type === 'IRI') {
         return json.value;
-    }
-    else if (json.datatype.lastIndexOf('string') === json.datatype.length - 6) {
-        // datatype is string
-        return n3_1.Util.createLiteral(json.value);
     }
     else {
         // datatype is (probably) boolean or integer

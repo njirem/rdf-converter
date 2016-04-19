@@ -1,3 +1,4 @@
+"use strict";
 var minimist = require('minimist');
 var shared_1 = require('./lib/shared');
 var parse_1 = require('./lib/parse');
