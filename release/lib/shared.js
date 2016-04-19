@@ -40,10 +40,6 @@ function jsonldToN3Resource(json) {
     if (json.type === 'IRI') {
         return json.value;
     }
-    else if (json.datatype.lastIndexOf('string') === json.datatype.length - 6) {
-        // datatype is string
-        return n3_1.Util.createLiteral(json.value);
-    }
     else {
         // datatype is (probably) boolean or integer
         return n3_1.Util.createLiteral(json.value, json.datatype);
