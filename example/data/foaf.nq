@@ -17,3 +17,5 @@
 <http://www.marvel.com/spiderman#norman> <http://www.perceive.net/schemas/relationship/parentOf> <http://www.marvel.com/spiderman#harry> .
 <http://www.marvel.com/spiderman#norman> <http://xmlns.com/foaf/0.1/name> "Norman Osborn"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://www.marvel.com/spiderman#norman> <http://xmlns.com/foaf/0.1/age> "68"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<http://www.marvel.com/spiderman#apostrophe-man> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Person> .
+<http://www.marvel.com/spiderman#apostrophe-man> <http://xmlns.com/foaf/0.1/name> "Apostrophe\" Man'"^^<http://www.w3.org/2001/XMLSchema#string> .

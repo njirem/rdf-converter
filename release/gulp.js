@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Note: Should rewrite to make use of Streams
  * Currently N3 supports streaming, JsonLD doesn't

@@ -31,3 +31,7 @@ spider:norman
   rel:parentOf spider:harry ;
   foaf:age "68"^^xsd:integer ;
   foaf:name "Norman Osborn"^^xsd:string .
+
+spider:apostrophe-man
+  a foaf:Person ;
+  foaf:name "Apostrophe\" Man'"^^xsd:string .

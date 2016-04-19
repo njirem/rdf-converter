@@ -39,38 +39,42 @@ export function toJS(file: DocumentData, jsOptions: JsOptions = {}): Promise<str
     let compact = jsOptions.compact || false;
 
     return toNQuads(file)
-        .then(nquads => nquads.split(/\s*\.\s*[\r|\n]/).filter(nquads => !!nquads))
-        .then(nquads => nquads.map(quad => `[\n        ${quadToJS(quad, compact) }\n    ]`))
-        .then(nquads => `[\n    ${nquads.join(',') }\n]`)
-        .then(array => jsTemplate.replace(/\$\{\s*quadArray\s*\}/, array))
+        .then(nquads => {
+            let quadArrays = nquads
+                .split(/\s*\.\s*[\r|\n]/)
+                .filter(nquads => !!nquads)
+                .map(quad => `[\n        ${quadToJS(quad, compact)}\n    ]`);
+            let array = `[\n    ${quadArrays.join(',')}\n]`;
+            return jsTemplate.replace(/\$\{\s*quadArray\s*\}/, array)
+        });
 }
 
 function quadToJS(quad: string, compact = false) {
     // Get the array of quad parts, regexp is to catch spaces in quotes
-    let quadArr = quad.match(/(?:[^\s"]+|"[^"]*")+/g)
-
-    for (let i = 0; i < 4; i++) {
-        let qPart = quadArr[i];
-
-        if (!qPart || Util.isBlank(qPart) || qPart === '@default') {
-            // Empty === null
-            quadArr[i] = 'null';
-            continue;
-        }
-
-        if (compact && Util.isLiteral(qPart)) {
-            // TODO: The probably is a better way to do this..
-            if (Util.getLiteralType(qPart).match(/^[<]?http:\/\/www.w3.org\/2001\/XMLSchema#(.*)[>]?$/)[1] === 'string') {
-                quadArr[i] = `"${Util.getLiteralValue(qPart) }"`;
-            } else {
-                quadArr[i] = Util.getLiteralValue(qPart)
+    let parts = quad.match(/(?:[^\s"]|"(?:[^"\\]|\\.)*")+/g);
+    while (parts.length < 4) parts.push(null);
+    return parts
+        .map((part, index) => {
+            if (part == null || index === 3 && (part === '@default' || Util.isBlank(part))) {
+                return 'null';
             }
-        }
-        quadArr[i] = `'${quadArr[i]}'`;
-    }
 
+            if (compact && Util.isLiteral(part)) {
+                let type = Util.getLiteralType(part);
+                if (/^<?http:\/\/www.w3.org\/2001\/XMLSchema#string>?$/.test(type)) {
+                    return `'"${escape(Util.getLiteralValue(part))}"'`;
+                } else {
+                    return `'${escape(Util.getLiteralValue(part))}'`;
+                }
+            }
 
-    return quadArr.join(',\n        ')
+            return `'${escape(part)}'`;
+        })
+        .join(',\n        ');
+}
+
+function escape(s: string) {
+    return s.replace(/\\/, '\\\\').replace(/'/g, '\\\'');
 }
 
 export function toType(file: DocumentData, type: Type, jsOptions?: JsOptions) {
@@ -97,5 +101,3 @@ export function setDefaultGraphName(file: DocumentData, graphName: string): Docu
     delete file.document['@default']
     return file;
 }
-
-

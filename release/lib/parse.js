@@ -1,3 +1,4 @@
+"use strict";
 var jsonld_1 = require('jsonld');
 var n3_1 = require('n3');
 var shared_1 = require('./shared');

@@ -1,3 +1,4 @@
+"use strict";
 var fs_1 = require('fs');
 var path_1 = require('path');
 var jsonld_1 = require('jsonld');

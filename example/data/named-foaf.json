@@ -66,6 +66,11 @@
                 "rel:enemyOf": {
                     "@id": "spider:spiderman"
                 }
+            },
+            {
+                "@id": "spider:apostrophe-man",
+                "@type": "foaf:Person",
+                "foaf:name": "Apostrophe\" Man'"
             }
         ]
     }

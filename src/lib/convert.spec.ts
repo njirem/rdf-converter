@@ -39,6 +39,12 @@ function testForJson(jsonDocument: string) {
                 .then(file => normalize(file.document))
                 .then(norm => expect(norm).to.be.eql(normalized))
         });
+
+        it('should convert to valid JS', () => {
+            return convert.toJS(document, { jsTemplate: '${quadArray}' })
+                .then(eval)
+                .then(value => expect(value).to.be.an('array'));
+        });
     }
 }
 
