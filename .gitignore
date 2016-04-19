@@ -5,3 +5,4 @@ src/**/*.d.ts
 **/*.js.map
 build
 *.log
+example/out
